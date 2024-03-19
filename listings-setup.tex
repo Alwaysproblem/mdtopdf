@@ -3,6 +3,14 @@
 \usepackage{unicode-math}
 \usepackage{newunicodechar}
 \usepackage[UTF8]{ctex}
+\usepackage{enumitem}
+\setlistdepth{20}
+\renewlist{itemize}{itemize}{20}
+\renewlist{enumerate}{enumerate}{20}
+\setlist[itemize]{label=$\cdot$}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=--}
+\setlist[itemize,3]{label=*}
 
 \lstset{
     basicstyle=\ttfamily,
@@ -17,7 +25,7 @@
     frame=single,
     frameround=ffff,
     framesep=5pt,
-    rulecolor=\color[RGB]{148,150,152}, 
+    rulecolor=\color[RGB]{148,150,152},
     breaklines=true,
     breakautoindent=true,
     breakatwhitespace=true,
@@ -29,4 +37,3 @@
     captionpos=b,
     linewidth=\textwidth,
 }
-
