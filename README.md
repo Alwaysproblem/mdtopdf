@@ -1,86 +1,24 @@
-# mdtopdf 🐳
+# Eisvogel
 
-mdtopdf is the pandoc docker image for converting markdown to PDF using TeX typesetting.
+[Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template) is a clean pandoc LaTeX template for lecture notes. It is specifically designed for students of the lecture "Algorithms and Data Structures" at Karlsruhe Institute of Technology (KIT). However, it is quite generic and can be used for other lecture notes as well.
 
-## Examples
+## Example
 
-You can see example markdown file and converted PDF file from the link below👇
+Add a code block at the start of your markdown file to include the template:
 
-[example markdown](examples/example.md)
-
-[example converted PDF](examples/example.pdf)
-
-![Top Image](top_image.png)
-
-## Getting Started
-
-1. Pull docker image.
-```bash
-$ docker pull plass/mdtopdf
+```yaml
+---
+title: "Board Environment Setup"
+author: [Yongxi Yang]
+date: "2024-03-22"
+subject: "Markdown"
+keywords: [Markdown, Tutorial, Board]
+listings-disable-line-numbers: true
+fontfamily: xeCJK
+...
 ```
-
-⚠️ This docker image size is **1.68GB**. I recommend pulling it using the fast Internet connection.
-
-2. Generate PDF file.
-```bash
-$ docker run -it --rm -v "`pwd`":/workdir plass/mdtopdf mdtopdf INPUT.md
-```
-
-**Windows (PowerShell)** : Replace `` `pwd` `` to `${pwd}`  
-**fish shell** : Replace `` `pwd` `` to `(pwd)`
-
-## Advanced Usages
-
-### Generate PDF file on save
 
 ```bash
-$ docker run -it --rm -v "`pwd`":/workdir  plass/mdtopdf w-mdtopdf INPUT.md
+alias pandock='docker run --rm -v `pwd`:/data alwaysproblem/pandoc/extra'
+pandock board_env_setup.md -o example.pdf --template eisvogel --listings --from markdown --pdf-engine=xelatex
 ```
-
-### Set alias
-
-You can decrease typing using `alias` command as below,
-
-```bash
-$ echo "alias mdtopdf='docker run -it --rm -v "`pwd`":/workdir plass/mdtopdf mdtopdf'" >> ~/.bash_profile
-$ echo "alias w-mdtopdf='docker run -it --rm -v "`pwd`":/workdir  plass/mdtopdf  w-mdtopdf'" >> ~/.bash_profile
-$ source ~/.bash_profile
- 
-$ mdtopdf INPUT.md
-$ w-mdtopdf INPUT.md
-```
-
-**zsh** : Modify `.zshrc` instead of `.bash_profile`.  
-**Ubuntu** : Modify `.bashrc` instead of `.bash_profile`.
-
-If you're using Docker for Windows, setting alias is a bit tricky.  Use following command.
-
-```powershell
-> echo 'Function mdtopdf {Param($file) docker run -it --rm -v ${pwd}:/workdir plass/mdtopdf mdtopdf $(Get-ChildItem $file -Name)}' >> $PROFILE
-> echo 'Function mdtopdf {Param($file) docker run -it --rm -v ${pwd}:/workdir plass/mdtopdf w-mdtopdf $(Get-ChildItem $file -Name)}' >> $PROFILE
-> . $PROFILE
-> mdtopdf INPUT.md
-> w-mdtopdf INPUT.md
-```
-
-### Generate tex file from markdown
-
-```bash
-$ docker run -it --rm -v "`pwd`":/workdir  plass/mdtopdf mdtotex INPUT.md
-```
-
-### Generate html file from markdown
-
-```bash
-$ docker run -it --rm -v "`pwd`":/workdir  plass/mdtopdf mdtohtml INPUT.md
-```
-
-[example converted HTML](examples/example.html)
-
-### Generate docx file from markdown
-
-```bash
-$ docker run -it --rm -v "`pwd`":/workdir  plass/mdtopdf mdtodocx INPUT.md
-```
-
-[example converted docx](examples/example.docx)

@@ -1,3 +1,0 @@
-#! /bin/bash
-
-watcher $1  mdtopdf $1
